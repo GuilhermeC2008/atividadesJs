@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Gerenciador de Alunos</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: auto;
+}
+
+input, button {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+}
+
+li {
+  margin-top: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>🎓 Gerenciador de Alunos</h2>
+
+  <input id="nome" placeholder="Nome do aluno">
+  <input id="nota" type="number" placeholder="Nota">
+
+  <button onclick="adicionar()">Adicionar</button>
+  <button onclick="mostrarAprovados()">Mostrar aprovados (≥ 7)</button>
+
+  <ul id="lista"></ul>
+</div>
+
+<script>
+let alunos = [];
+
+function adicionar() {
+  const nome = document.getElementById("nome").value;
+  const nota = Number(document.getElementById("nota").value);
+
+  if (nome === "" || isNaN(nota)) {
+    alert("Preencha todos os campos corretamente!");
+    return;
+  }
+
+  alunos.push({ nome: nome, nota: nota });
+
+  document.getElementById("nome").value = "";
+  document.getElementById("nota").value = "";
+
+  renderizar(alunos);
+}
+
+function renderizar(lista) {
+  const ul = document.getElementById("lista");
+  ul.innerHTML = "";
+
+  lista.forEach(aluno => {
+    ul.innerHTML += `<li>${aluno.nome} - Nota: ${aluno.nota}</li>`;
+  });
+}
+
+function mostrarAprovados() {
+  const aprovados = alunos.filter(aluno => aluno.nota >= 7);
+  renderizar(aprovados);
+}
+</script>
+
+</body>
+</html>
