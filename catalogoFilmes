@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Catálogo de Filmes</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: auto;
+}
+
+input, button {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+}
+
+li {
+  margin-top: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>🎬 Catálogo de Filmes</h2>
+
+  <input id="titulo" placeholder="Título do filme">
+  <input id="genero" placeholder="Gênero (ex: Ação)">
+  <input id="ano" placeholder="Ano">
+
+  <button onclick="adicionar()">Adicionar Filme</button>
+  <button onclick="filtrar()">Filtrar Ação</button>
+  <button onclick="mostrarTodos()">Mostrar todos</button>
+
+  <ul id="lista"></ul>
+</div>
+
+<script>
+let filmes = [];
+
+function adicionar() {
+  const titulo = document.getElementById("titulo").value;
+  const genero = document.getElementById("genero").value;
+  const ano = document.getElementById("ano").value;
+
+  if (titulo === "" || genero === "" || ano === "") {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  filmes.push({ titulo, genero, ano });
+
+  document.getElementById("titulo").value = "";
+  document.getElementById("genero").value = "";
+  document.getElementById("ano").value = "";
+
+  renderizar(filmes);
+}
+
+function renderizar(lista) {
+  const ul = document.getElementById("lista");
+  ul.innerHTML = "";
+
+  lista.forEach(filme => {
+    ul.innerHTML += `
+      <li>
+        <strong>${filme.titulo}</strong> (${filme.ano}) - ${filme.genero}
+      </li>
+    `;
+  });
+}
+
+function filtrar() {
+  const filtrados = filmes.filter(f => f.genero.toLowerCase() === "ação");
+  renderizar(filtrados);
+}
+
+function mostrarTodos() {
+  renderizar(filmes);
+}
+</script>
+
+</body>
+</html>
