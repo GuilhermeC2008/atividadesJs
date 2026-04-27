@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Ranking de Jogadores</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: auto;
+}
+
+input, button {
+  padding: 10px;
+  width: 100%;
+  margin: 5px 0;
+}
+
+li {
+  margin-top: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>🏆 Ranking de Jogadores</h2>
+
+  <input id="jogador" placeholder="Nome do jogador">
+  <input id="pontos" type="number" placeholder="Pontos">
+
+  <button onclick="adicionar()">Adicionar jogador</button>
+
+  <ul id="lista"></ul>
+</div>
+
+<script>
+let jogadores = [];
+
+function adicionar() {
+  const nome = document.getElementById("jogador").value;
+  const pontos = Number(document.getElementById("pontos").value);
+
+  if (nome === "" || isNaN(pontos)) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  jogadores.push({ jogador: nome, pontos });
+
+  document.getElementById("jogador").value = "";
+  document.getElementById("pontos").value = "";
+
+  renderizar();
+}
+
+function renderizar() {
+  const ul = document.getElementById("lista");
+  ul.innerHTML = "";
+
+  // ordena do maior para o menor
+  const ranking = jogadores
+    .sort((a, b) => b.pontos - a.pontos)
+    .map((j, index) => {
+      return `${index + 1}º ${j.jogador} - ${j.pontos} pontos`;
+    });
+
+  ranking.forEach(item => {
+    ul.innerHTML += `<li>${item}</li>`;
+  });
+}
+</script>
+
+</body>
+</html>
