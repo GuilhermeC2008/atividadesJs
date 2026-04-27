@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Compras</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: auto;
+}
+
+input, button {
+  padding: 10px;
+  margin: 5px 0;
+  width: 100%;
+}
+
+li {
+  margin-top: 10px;
+}
+
+button.remover {
+  margin-left: 10px;
+  background: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>🛒 Lista de Compras</h2>
+
+  <input id="item" placeholder="Digite um item">
+  <button onclick="adicionar()">Adicionar</button>
+
+  <ul id="lista"></ul>
+</div>
+
+<script>
+let compras = [];
+
+function adicionar() {
+  const valor = document.getElementById("item").value;
+
+  if (valor === "") {
+    alert("Digite um item!");
+    return;
+  }
+
+  compras.push(valor);
+  document.getElementById("item").value = "";
+  renderizar();
+}
+
+function renderizar() {
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  compras.forEach((item, index) => {
+    lista.innerHTML += `
+      <li>
+        ${item}
+        <button class="remover" onclick="remover(${index})">Remover</button>
+      </li>
+    `;
+  });
+}
+
+function remover(index) {
+  compras.splice(index, 1);
+  renderizar();
+}
+</script>
+
+</body>
+</html>
