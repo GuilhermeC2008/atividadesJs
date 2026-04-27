@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Carrinho de Compras</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  padding: 20px;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: auto;
+}
+
+button {
+  padding: 10px;
+  width: 100%;
+  margin: 5px 0;
+}
+
+li {
+  margin-top: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>🛒 Carrinho de Compras</h2>
+
+  <button onclick="adicionar()">Adicionar produto</button>
+  <button onclick="remover()">Remover último produto</button>
+
+  <ul id="lista"></ul>
+
+  <p><strong>Total de produtos:</strong> <span id="total">0</span></p>
+</div>
+
+<script>
+let carrinho = [];
+
+function adicionar() {
+  carrinho.push("Produto " + (carrinho.length + 1));
+  renderizar();
+}
+
+function remover() {
+  if (carrinho.length > 0) {
+    carrinho.pop();
+    renderizar();
+  } else {
+    alert("Carrinho vazio!");
+  }
+}
+
+function renderizar() {
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  carrinho.forEach(produto => {
+    lista.innerHTML += `<li>${produto}</li>`;
+  });
+
+  document.getElementById("total").innerText = carrinho.length;
+}
+</script>
+
+</body>
+</html>
